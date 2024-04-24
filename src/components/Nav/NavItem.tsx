@@ -1,37 +1,36 @@
-import React from "react"
+import React, { useState } from "react"
 
 export interface Item {
 	label: string
-	btn: string
 	active?: boolean
 }
-
 const NavItem = ({ item }: { item: Item }) => {
-	const { label, btn, active } = item
+	const { label, active } = item
 	function CustomComponent() {
 		return (
-		  <div className="w-80 h-14 relative">
-			<div className="w-80 h-10 left-0 top-[2px] absolute bg-white rounded-2xl border border-gray-800" />
-			<div className="w-4 h-14 left-0 top-0 absolute bg-white" />
-		  </div>
+		  <button className="ml-3 w-80 h-14 relative">
+			<div className="w-80 h-10 left-0 top-[1.5px] absolute bg-white rounded-3xl border border-gray-800" />
+			<div className="w-6 h-14 left-0 top-0  absolute bg-white" />
+			<h3 className='ml-10 top-0 absolute mt-1  z-[9999]'>{label}</h3>
+		  </button>
 		);
 	  }
 	  function CustomClickedComponent() {
 		return (
-			<div className="ml-3 w-80 h-14 relative">
-				<div className="w-80 h-10 left-0 top-[2px] absolute bg-white rounded-2xl border border-gray-800" />
-				<div className="w-8 h-14 left-[300px] top-0 absolute bg-white" />
-			</div>
+			<button className="ml-7 w-80 h-14 relative ">
+				<div className="w-80 h-10 left-0 top-[1.5px] absolute bg-white rounded-3xl border border-gray-800" />
+				<div className="w-8 h-14 left-[300px] top-0 absolute bg-white"/>
+				<h3 className='ml-6 top-0 absolute mt-1  z-[9999]'>{label}</h3>
+			</button>
 		);
 	  }
 	return (
 		<li
 			className={`flex justify-start items-center cursor-pointer${
-				active ?' bg-red text-green ' :''
+				active ? 'active'  :''
 			}`}
 		>
-			<CustomComponent/>
-			<h3 className='ml-6 mb-5 absolute mt-2'>{label}</h3>
+			{active ? <CustomClickedComponent /> : <CustomComponent />}
 		</li>
 	)
 }
