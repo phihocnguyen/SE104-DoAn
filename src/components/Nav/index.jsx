@@ -18,12 +18,12 @@ const NavItemsContainer = () => (
 		))}
 	</>
 )
-const Index = ()=> {
+const Nav = ()=> {
     return (
         <nav className='col-span-3 items-center'>
         <div className='mb-5 mt-5 ml-14 rounded-[10px] w-[250px] h-[230px] bg-[#1d1c34] flex justify-center '>
         <div className='mt-5 w-28 h-28 bg-white rounded-full flex justify-center'  />
-        <img className="mt-6 w-24 h-24  absolute rounded-full" src="avt.jpg"/>
+        <img className="mt-7 w-24 h-24  absolute rounded-full" src="https://img.freepik.com/free-photo/3d-rendering-zoom-call-avatar_23-2149556777.jpg?t=st=1714234508~exp=1714238108~hmac=22fab367121cbcd29064e092f51516f60634310616d25c93d6847c72f14cb5c3&w=1480"/>
 		<h3 className='absolute mt-36  text-white z-[9999]'>Lê Ngọc Bảo Minh</h3>
 		<h3 className='absolute mt-44 text-white z-[9999]'>22520867</h3>
 		</div>
@@ -37,4 +37,4 @@ const Index = ()=> {
         </nav>
     )
 }
-export default Index
+export default Nav

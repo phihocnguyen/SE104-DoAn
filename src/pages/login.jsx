@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BiSolidHide } from "react-icons/bi";
 import { BiSolidShow } from "react-icons/bi";
+import { Link } from "react-router-dom"
 const Login = () => {
     const [showPassword,setShowPassword] = useState(false)    
 
@@ -29,7 +30,7 @@ const Login = () => {
                         <input className="mt-2 focus:border-[#000000] text-[14px] p-2 rounded-md border border-[#c9c9c9] outline-none" type={showPassword ? 'text' : 'password'} id ='password' name ='password' />
                     </div>
                     <div className="mt-4">
-                        <button type="button" className="w-full text-white bg-[#3c3b52] hover:bg-[#1D1C34] duration-150 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Đăng nhập</button>
+                        <Link to ="/hssv" type="button" className="w-full text-white bg-[#3c3b52] hover:bg-[#1D1C34] duration-150 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Đăng nhập</Link>
                     </div>
                 </form>
             </div>
