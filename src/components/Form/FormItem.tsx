@@ -21,23 +21,23 @@ const FormItem = ({ item }: { item: Item }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     function DDMbox () {
         return (
-            <div className='grid grid-cols-2'>
+            <div className=''>
             <div className={`${position} justify-center`}>
             <div className=' ml-3 flex justify-start'>
                 <h3 className="text-black text-[11px]">{label}</h3>
                 <div className="mt-2.5 ml-1 text-rose-500 text-[11px]">*</div>
             </div>
-            <div className='mr-3 flex justify-center'>
-      <div className="h-12 w-4/5  bg-white rounded-md border border-neutral-400 flex-col justify-center items-start flex relative">
-        <div className="justify-start items-center gap-2 inline-flex">
-          <div className="grow shrink basis-0 h-5 justify-start items-center gap-2.5 flex relative">
-          <div className="flex justify-center items-center" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                  {isDropdownOpen ? <RiArrowDropUpLine className='absolute ml-44 w-7 h-7' /> : <RiArrowDropDownLine className='absolute ml-44 w-7 h-7' />}
+            <div className=''>
+      <div className="h-12 mx-[12px] bg-white rounded-md border border-neutral-400  justify-end items-center flex">
+        <div className="">
+            <div className="">
+                <div className="flex justify-center items-center" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                    {isDropdownOpen ? <RiArrowDropUpLine className='w-7 h-7' /> : <RiArrowDropDownLine className='w-7 h-7' />}
                 </div>
-                {isDropdownOpen && (
-                  <DDMItemsContainer/>
-                )}
-              </div>
+                    {isDropdownOpen && (
+                    <DDMItemsContainer/>
+                    )}
+            </div>
         </div>
       </div>
             </div>
@@ -47,18 +47,18 @@ const FormItem = ({ item }: { item: Item }) => {
     }
     function NDDMbox () {
         return (
-            <div className=' grid grid-cols-2'>
+            <div className=''>
                 <div className={`${position} justify-center`}>
             <div className=' ml-3 flex justify-start'>
                 <h3 className="text-black text-[11px] ">{label}</h3>
                 <div className="mt-2.5 ml-1 text-rose-500 text-[11px]">*</div>
             </div>
-            <div className=' flex mb-3 justify-center'>
-            <div className=" h-12 w-5/6 bg-white rounded-md border border-neutral-400 flex-col justify-center items-start flex">
-                 <div className=" justify-start items-center gap-2 inline-flex">
-                    <div className="grow shrink basis-0 h-5 justify-start items-center gap-2.5 flex">
-                    <input placeholder={label} className="ml-3 text-[#1d1c34] text-[13px] w-full" type="text" />
-                     </div>
+            <div className='mb-3 px-[12px]'>
+            <div className="">
+                 <div className="">
+                    <div className="">
+                        <input placeholder={label} className="px-3 bg-white rounded-md border border-neutral-400 py-[12px] block text-[#1d1c34] text-[13px] w-full" type="text" />
+                    </div>
                 </div>
             </div>
             </div>
@@ -69,7 +69,7 @@ const FormItem = ({ item }: { item: Item }) => {
 	const { label,position, haveDDM } = item
     return(
         <li
-        className={`flex justify-start items-center cursor-pointer`}>
+        className={`cursor-pointer`}>
             {haveDDM ? <DDMbox/> : <NDDMbox/>}
         </li>
     )

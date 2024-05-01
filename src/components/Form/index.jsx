@@ -22,7 +22,7 @@ const Form = () => {
             <div className=' col-span-2 flex justify-center'>
             <h1 className='text-gray-800 mt-20 mb-10 text-xl font-extrabold'>HỒ SƠ SINH VIÊN</h1>
             </div>
-            <ul className=' col-span-2 flex justify-center'>
+            <ul className=' col-span-2 flex justify-center flex-col'>
               <FormItemsContainer/>
               </ul>
             <div className="col-span-2 mt-3 flex justify-center">
