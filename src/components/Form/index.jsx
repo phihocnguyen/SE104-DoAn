@@ -3,16 +3,40 @@ import FormItem from './FormItem'
 const items = [
   { label: 'HỌ VÀ TÊN'  , haveDDM: false, position: 'col-span-2'},
   { label: 'NGÀY SINH'  , haveDDM: false, position: 'col-start-1'},
+]
+
+const items1 = [
   { label: 'GIỚI TÍNH'  , haveDDM: true, position: 'col-start-2'},
-  { label: 'QUÊ QUÁN'  , haveDDM: true,position: 'col-start-1'},
+  { label: 'TỈNH'  , haveDDM: true,position: 'col-start-1'},
+  { label: 'HUYỆN'  , haveDDM: true,position: 'col-start-1'},
   { label: 'NGÀNH HỌC'  , haveDDM: true,position: 'col-span-2'},
 ]
 
 const FormItemsContainer = () => (
 	<>
-		{items.map((item, index) => (
-			<FormItem item={item} key={index} />
-		))}
+    <div className=''>
+      <FormItem item = {items[0]} />
+    </div>
+    <div className='flex'>
+      <div className='w-[50%]'>
+        <FormItem item = {items[1]} />
+      </div>
+      <div className='w-[50%]'>
+        <FormItem item = {items1[0]} />
+      </div>
+    </div>
+    <div className='flex  '>
+      <div className='w-[50%]'>
+        <FormItem item = {items1[1]} />
+      </div>
+      <div className='w-[50%]'>
+        <FormItem item = {items1[2]} />
+      </div>
+    </div>
+    <div>
+        <FormItem item = {items1[3]} />
+
+    </div>
 	</>
 )
 const Form = () => {
