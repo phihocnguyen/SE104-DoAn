@@ -28,15 +28,16 @@ const FormItem = ({ item }: { item: Item }) => {
                 <div className="mt-2.5 ml-1 text-rose-500 text-[11px]">*</div>
             </div>
             <div className=''>
-      <div className="relative h-12 mx-[12px] bg-white rounded-md border border-neutral-400  justify-end items-center flex">
-        <div className="">
+      <div className="relative h-12 mx-[12px] bg-white rounded-md border border-neutral-400 items-center flex">
+        <div className="flex items-center justify-between w-full">
+            <input placeholder={label} value={123} className="ml-[12px] text-[#1d1c34] text-[13px]"></input>
             <div className="">
                 <div className="flex justify-center items-center" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                     {isDropdownOpen ? <RiArrowDropUpLine className='w-7 h-7' /> : <RiArrowDropDownLine className='w-7 h-7' />}
                 </div>
                 <div className="absolute top-0 left-0 w-full">
                     {isDropdownOpen && (
-                    <DDMItemsContainer/>
+                    <DDMItemsContainer />
                     )}
                 </div>
             </div>
