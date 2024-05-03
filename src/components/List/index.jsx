@@ -19,7 +19,7 @@ const ListItemsContainer = () => (
 )
 const List = () => {
     return (
-        <div className="mt-5 col-span-6 w-200 h-200 relative bg-white rounded-lg border border-gray-800">
+        <div className="mt-5  w-200 h-200 relative bg-white rounded-lg border border-gray-800">
                     <div className=" w-200 h-16 left-0 top-0 bg-gray-800 rounded-t-lg">
                         <ul className='flex justify-start items-center px-4'>
                             <ListItemsContainer/>

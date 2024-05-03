@@ -1,80 +1,69 @@
-import React, { useState } from "react"
-import { RiArrowDropUpLine, RiArrowDropDownLine } from 'react-icons/ri';
-import DDMItem from './DDMItem'
+import React from "react"
+import { RiArrowDropDownLine } from 'react-icons/ri';
 export interface Item {
-	label: string
+    label: string
     position: string
-	haveDDM?: boolean
+    margin: string
+    marrow: string
+    mlabel: string
+    haveDDM?: boolean
+    options?: string[]
 }
-const items = [
-    { label: 'Nam'},
-    { label: 'Nữ'},
-]
-const DDMItemsContainer = () => (
-	<>
-		{items.map((item, index) => (
-			<DDMItem item={item} key={index} />
-		))}
-	</>
+
+const DDMItemsContainer = ({ options }: { options: string[] }) => (
+    <>
+        {options.map((option, index) => (
+            <option key={index} value={option}>{option}</option>
+        ))}
+    </>
 )
+
 const FormItem = ({ item }: { item: Item }) => {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const { label, position, haveDDM , margin, marrow, mlabel, options} = item
     function DDMbox () {
+        console.log(options);
         return (
-            <div className='w-full'>
-            <div className={`${position} justify-center`}>
-            <div className=' ml-3 flex justify-start'>
+            <div className='flex flex-col justify-between mb-2'>
+            <div className={`${position}`}>
+            <div className={`${mlabel} flex justify-start`}>
                 <h3 className="text-black text-[11px]">{label}</h3>
                 <div className="mt-2.5 ml-1 text-rose-500 text-[11px]">*</div>
             </div>
-            <div className=''>
-      <div className="relative mx-[12px] bg-white rounded-md border border-neutral-400 items-center flex">
-        <div className="flex items-center justify-between w-full">
-            <input placeholder={label}  className="py-[12px] ml-[12px] text-[#1d1c34] text-[13px] w-full"></input>
-            <div className="">
-                <div className="flex justify-center items-center" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                    {isDropdownOpen ? <RiArrowDropUpLine className='w-7 h-7' /> : <RiArrowDropDownLine className='w-7 h-7' />}
+            <div className={`relative flex ${margin} items-center`}>
+                <select  className="block appearance-none w-5/6 bg-white border border-neutral-400 text-gray-700 h-[45px] rounded-md focus:outline-none focus:bg-white focus:border-neutral-400">
+                {options && <DDMItemsContainer options={options} />}
+                </select>
+            <div className={`pointer-events-none absolute inset-y-0 right-0 ${marrow} flex items-center px-2 text-gray-700`}>
+                <RiArrowDropDownLine className='w-7 h-7'/>
                 </div>
-                <div className="absolute top-0 left-0 w-full">
-                    {isDropdownOpen && (
-                    <DDMItemsContainer />
-                    )}
                 </div>
-            </div>
+
         </div>
       </div>
-            </div>
-            </div>
-            </div>
         );
     }
     function NDDMbox () {
         return (
-            <div className='flex flex-col justify-between'>
+            <div className='flex flex-col justify-between mb-2'>
                 <div className={`${position}`}>
-            <div className=' ml-3 flex justify-start'>
-                <h3 className="text-black text-[11px] ">{label}</h3>
-                <div className="mt-2.5 ml-1 text-rose-500 text-[11px]">*</div>
-            </div>
-            <div className='px-[12px]'>
-            <div className="">
-                 <div className="">
-                    <div className="">
-                        <input placeholder={label} className=" px-3 bg-white rounded-md border border-neutral-400 py-[12px] block text-[#1d1c34] text-[13px] w-full" type="text" />
+                <div className={`${mlabel} flex justify-start`}>
+                    <h3 className="text-black text-[11px] ">{label}</h3>
+                    <div className="mt-2.5 ml-1 text-rose-500 text-[11px]">*</div>
                     </div>
+                <div className={` flex ${margin}`}>
+                    <input placeholder={label} className=" px-3 py-[12px] bg-white rounded-md border border-neutral-400  block text-[#1d1c34] text-[13px] w-5/6" type="text" />
                 </div>
-            </div>
-            </div>
-            </div>
+                </div>
             </div>
         );
     }
-	const { label,position, haveDDM } = item
+   
     return(
         <li
-        className={`cursor-pointer`}>
+        className={`cursor-pointer list-none`}>
             {haveDDM ? <DDMbox/> : <NDDMbox/>}
         </li>
     )
 }
 export default FormItem
+
