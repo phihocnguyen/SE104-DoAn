@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState } from "react"
 import { RiArrowDropDownLine } from 'react-icons/ri';
+
 export interface Item {
     label: string
     position: string
@@ -20,8 +21,8 @@ const DDMItemsContainer = ({ options }: { options: string[] }) => (
 
 const FormItem = ({ item }: { item: Item }) => {
     const { label, position, haveDDM , margin, marrow, mlabel, options} = item
+    const [isOpen, setIsOpen] = useState(false);
     function DDMbox () {
-        console.log(options);
         return (
             <div className='flex flex-col justify-between mb-2'>
             <div className={`${position}`}>
@@ -30,13 +31,15 @@ const FormItem = ({ item }: { item: Item }) => {
                 <div className="mt-2.5 ml-1 text-rose-500 text-[11px]">*</div>
             </div>
             <div className={`relative flex ${margin} items-center`}>
-                <select  className="block appearance-none w-5/6 bg-white border border-neutral-400 text-gray-700 h-[45px] rounded-md focus:outline-none focus:bg-white focus:border-neutral-400">
+                <div className=" w-5/6 bg-white border border-neutral-400 text-gray-700 h-[45px] rounded-md focus:outline-none focus:bg-white focus:border-neutral-400">
+                <select  className="text-[13px] mt-3 ml-2 w-8/12 block appearance-none" onClick={() => setIsOpen(!isOpen)}>
                 {options && <DDMItemsContainer options={options} />}
                 </select>
-            <div className={`pointer-events-none absolute inset-y-0 right-0 ${marrow} flex items-center px-2 text-gray-700`}>
-                <RiArrowDropDownLine className='w-7 h-7'/>
+            <button className={` absolute inset-y-0 right-0 ${marrow} flex items-center px-2 text-gray-700`} >
+                <RiArrowDropDownLine className='cursor-pointer  w-7 h-7' onClick={() => setIsOpen(!isOpen)}/>
+                </button>
                 </div>
-                </div>
+            </div>
 
         </div>
       </div>

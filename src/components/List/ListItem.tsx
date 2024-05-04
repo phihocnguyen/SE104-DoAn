@@ -2,13 +2,14 @@ import React from "react"
 
 export interface Item {
 	label: string
+	position: string
 }
 const ListItem = ({ item }: { item: Item }) => {
-	const { label } = item
+	const { label,position } = item
 	return (
-		<li className='mt-6 flex justify-start items-center px-4  '>
+		<th className={`${position} mt-2 mb-2 flex justify-center items-center`}>
 			<h6 className="text-white text-[0.65rem] ">{label}</h6>
-		</li>
+		</th>
 	)
 }
 export default ListItem
