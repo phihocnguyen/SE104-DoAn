@@ -11,7 +11,8 @@ const Thp = () => {
         { label: 'Lập phiếu thu học phí', active: true, link: "/thp" },
         { label: 'Lập báo cáo sinh viên chưa đóng HP', link: "/Svcdhp" },
     ]
-    const defaultsc = "px-10"
+    const defaultsc = " text-white"
+  const defaultsc1 = " text-black"
     const items = [
         { label: 'STT',position: defaultsc},
         { label: 'SỐ PHIẾU',position: defaultsc  },
@@ -19,6 +20,13 @@ const Thp = () => {
         { label: 'NGÀY LẬP',position: defaultsc  },
         { label: 'TỔNG SỐ TIỀN',position: defaultsc  },
     ]
+    const items3 = [
+      { label: 'STT',position: defaultsc1},
+      { label: 'SỐ PHIẾU',position: defaultsc1  },
+      { label: 'MSSV',position: defaultsc1  },
+      { label: 'NGÀY LẬP',position: defaultsc1  },
+      { label: 'TỔNG SỐ TIỀN',position: defaultsc1  },
+  ]
     const Label = "THU HỌC PHÍ"
     const items1 = [
       { label: 'SỐ PHIẾU', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6'  },
@@ -31,7 +39,7 @@ const Thp = () => {
        
       ]
     return (
-        <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label}>
+      <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label} value4={items3}>
           <Searchbar/>
         </DefaultLayout>
     )

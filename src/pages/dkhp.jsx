@@ -11,25 +11,32 @@ const Dkhp = () => {
         { label: 'Lập phiếu thu học phí', link: "/thp" },
         { label: 'Lập báo cáo sinh viên chưa đóng HP', link: "/Svcdhp" },
     ]
-    const defaultsc = "px-12"
+    const defaultsc = " text-white"
+  const defaultsc1 = " text-black"
     const items = [
-        { label: 'STT', position: defaultsc},
-        { label: 'MÃ SỐ SINH VIÊN' , position: defaultsc },
-        { label: 'HỌ VÀ TÊN' , position: defaultsc },
-        { label: '' , position: defaultsc },
+        { label: 'STT', position: defaultsc },
+        { label: 'MÃ SỐ SINH VIÊN', position: defaultsc },
+        { label: 'HỌ VÀ TÊN', position: defaultsc },
+        { label: '', position: defaultsc },
+    ]
+    const items3 = [
+        { label: 'STT', position: defaultsc1 },
+        { label: 'MÃ SỐ SINH VIÊN', position: defaultsc1 },
+        { label: 'HỌ VÀ TÊN', position: defaultsc1 },
+        { label: '', position: defaultsc1 },
     ]
     const Label = "ĐĂNG KÝ HỌC PHẦN"
     const items1 = [
         { label: 'MÃ SỐ SINH VIÊN', haveDDM: false, position: 'col-span-2', margin: 'justify-center', mlabel: 'ml-6' },
         { label: 'NGÀY LẬP', haveDDM: false, position: 'col-span-2', margin: 'justify-center', mlabel: 'ml-6' },
-      ]
-      const items2 = [
+    ]
+    const items2 = [
         { label: 'HỌC KỲ', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Học kỳ 1', 'Học kỳ 2', 'Học kỳ hè'] },
         { label: 'NĂM HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['2023-2024', '2022-2023'] },
-      ]
+    ]
     return (
-        <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label}>
-            <Searchbar/>
+        <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label} value4={items3}>
+            <Searchbar />
             <h3 className='mt-3 text-gray-800'>DANH SÁCH PHIẾU ĐĂNG KÝ HỌC PHẦN</h3>
 
         </DefaultLayout>
