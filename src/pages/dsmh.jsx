@@ -1,5 +1,7 @@
 import React from "react"
 import DefaultLayout from "../components/DefaultLayout"
+import { FaTrash } from "react-icons/fa";
+import { FaPen } from "react-icons/fa";
 const Dsmh = () => {
   const item = [
     { label: 'Lập hồ sơ sinh viên', link: "/hssv" },
@@ -27,7 +29,7 @@ const Dsmh = () => {
     { label: 'TÊN MÔN HỌC', position: defaultsc1 },
     { label: 'LOẠI MÔN', position: defaultsc1 },
     { label: 'SỐ TIẾT', position: defaultsc1 },
-    { label: '', position: defaultsc1 },
+    { label: <div className="flex justify-center"> <FaPen/> <FaTrash className="ml-2"/> </div>, type:'button', position: defaultsc1 },
   ]
   const items1 = [
 

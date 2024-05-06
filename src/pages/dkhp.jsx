@@ -23,7 +23,7 @@ const Dkhp = () => {
         { label: 'STT', position: defaultsc1 },
         { label: 'MÃ SỐ SINH VIÊN', position: defaultsc1 },
         { label: 'HỌ VÀ TÊN', position: defaultsc1 },
-        { label: '', position: defaultsc1 },
+        { label: 'Xem chi tiết', type: 'button', position: 'ml-10 rounded-[10px] w-1/2 h-[35px] bg-transparent hover:bg-[#1d1c34] hover:text-white border border-[#1d1c34] hover:border-transparent' },
     ]
     const Label = "ĐĂNG KÝ HỌC PHẦN"
     const items1 = [
@@ -38,7 +38,6 @@ const Dkhp = () => {
         <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label} value4={items3}>
             <Searchbar />
             <h3 className='mt-3 text-gray-800'>DANH SÁCH PHIẾU ĐĂNG KÝ HỌC PHẦN</h3>
-
         </DefaultLayout>
     )
 }

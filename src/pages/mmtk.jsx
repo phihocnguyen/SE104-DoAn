@@ -1,5 +1,7 @@
 import React from "react"
 import DefaultLayout from "../components/DefaultLayout"
+import { FaTrash } from "react-icons/fa";
+import { FaPen } from "react-icons/fa";
 const Mmtk = () => {
   const item = [
     { label: 'Lập hồ sơ sinh viên', link: "/hssv" },
@@ -25,6 +27,7 @@ const Mmtk = () => {
     { label: 'NĂM HỌC', position: defaultsc1 },
     { label: 'TÊN MÔN HỌC', position: defaultsc1 },
     { label: '', position: defaultsc1 },
+    { label: <div className="flex justify-center"> <FaPen/> <FaTrash className="ml-2"/> </div>, type:'button', position: defaultsc1 },
   ]
   const Label = "MÔN HỌC MỞ TRONG KỲ"
   const items1 = [

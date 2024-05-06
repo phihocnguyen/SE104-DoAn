@@ -13,13 +13,26 @@ const Svdkhp = () => {
     { label: 'MÔN HỌC', position: defaultsc },
     { label: 'LOẠI MÔN', position: defaultsc },
     { label: 'TÍN CHỈ', position: defaultsc },
+    { label: '', position: defaultsc },
   ]
   const items1 = [
     { label: '1', position: defaultsc1 },
     { label: 'Nhập môn công nghệ phần mềm', position: defaultsc1 },
     { label: 'Cơ sở ngành', position: defaultsc1 },
     { label: '4', position: defaultsc1 },
-
+    { label: 'Chọn', type: 'button', position: 'rounded-[10px] justify-center w-1/2 h-[35px] bg-transparent hover:bg-[#1d1c34] hover:text-white border border-[#1d1c34] hover:border-transparent flex items-center ' },
+  ]
+  const items2 = [
+    { label: '1', position: defaultsc1 },
+    { label: 'Nhập môn công nghệ phần mềm', position: defaultsc1 },
+    { label: 'Cơ sở ngành', position: defaultsc1 },
+    { label: '4', position: defaultsc1 },
+  ]
+  const items3 = [
+    { label: 'STT', position: defaultsc },
+    { label: 'MÔN HỌC', position: defaultsc },
+    { label: 'LOẠI MÔN', position: defaultsc },
+    { label: 'TÍN CHỈ', position: defaultsc },
   ]
   return (
     <div className='grid grid-cols-12'>
@@ -36,7 +49,7 @@ const Svdkhp = () => {
         </div>
         <div className="h-[230px]">
           <h3 className=' text-gray-800'>DANH SÁCH MÔN ĐÃ CHỌN</h3>
-          <List items={items} items1={items1} />
+          <List items={items3} items1={items2} />
         </div>
       </main>
     </div>
