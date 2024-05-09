@@ -1,10 +1,29 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BiSolidHide } from "react-icons/bi";
 import { BiSolidShow } from "react-icons/bi";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { login } from "../api/auth";
+import { userContext } from "../context/userContext";
 const Login = () => {
     const [showPassword,setShowPassword] = useState(false)    
-
+    const [username,setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const {setUserInfo} = useContext(userContext)
+    const navigate = useNavigate()
+    const handleSubmit = async e => {
+        e.preventDefault()
+        const data = {
+            username,
+            password
+        }
+        const response = await login(data)
+        console.log(response)
+        if (response.status === 200) {
+            setUserInfo(response.data)
+            localStorage.setItem('info', JSON.stringify(response.data))
+            navigate('/hssv')
+        }
+    }
   return (
     <div className='bg-[#1D1C34] h-screen w-screen flex items-center justify-center'>
         <div className="w-[75%] h-[75%] bg-white rounded-md overflow-hidden flex shadow-md">
@@ -14,10 +33,10 @@ const Login = () => {
             </div>
             <div className="w-[30%] h-full flex flex-col justify-center px-6">
                 <h2 className="text-black text-center font-bold text-[18px]">ĐĂNG NHẬP</h2>
-                <form className="mt-4">
+                <form className="mt-4" onSubmit={handleSubmit}>
                     <div className="flex flex-col">
                         <label className="text-[12px] font-normal text-[#666666]" htmlFor="mssv" >Mã số sinh viên</label>
-                        <input className="mt-2 focus:border-[#000000] text-[14px] p-2 rounded-md border border-[#c9c9c9] outline-none" type="text" id ='mssv' name ='mssv' />
+                        <input className="mt-2 focus:border-[#000000] text-[14px] p-2 rounded-md border border-[#c9c9c9] outline-none" value={username} onChange={(e) => setUsername(e.target.value)} type="text" id ='mssv' name ='mssv' />
                     </div>
                     <div className="flex flex-col mt-4">
                         <div className="flex justify-between">
@@ -27,10 +46,10 @@ const Login = () => {
                                 <p className="ml-1">{showPassword ? 'Hide' : 'Show'}</p>
                             </div>
                         </div>
-                        <input className="mt-2 focus:border-[#000000] text-[14px] p-2 rounded-md border border-[#c9c9c9] outline-none" type={showPassword ? 'text' : 'password'} id ='password' name ='password' />
+                        <input className="mt-2 focus:border-[#000000] text-[14px] p-2 rounded-md border border-[#c9c9c9] outline-none" value={password} onChange={e => setPassword(e.target.value)} type={showPassword ? 'text' : 'password'} id ='password' name ='password' />
                     </div>
                     <div className="mt-4">
-                        <Link to ="/hssv" type="button" className="w-full text-white bg-[#3c3b52] hover:bg-[#1D1C34] duration-150 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Đăng nhập</Link>
+                        <button className="w-full text-white bg-[#3c3b52] hover:bg-[#1D1C34] duration-150 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  focus:outline-none ">Đăng nhập</button>
                     </div>
                 </form>
             </div>

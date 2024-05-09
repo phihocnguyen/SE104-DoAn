@@ -1,7 +1,33 @@
-import React from "react"
+import { useEffect, useState } from "react"
 import DefaultLayout from "../components/DefaultLayout"
 import Searchbar from "../components/Searchbar"
+import { getAllReceipts } from "../api/fee"
+import List from "../components/List"
 const Thp = () => {
+
+    const [soPhieu, setSoPhieu] = useState('')
+    const [date, setDate] = useState('')
+    const [mssv, setMssv] = useState('')
+    const [data, setData] = useState([])
+    const [list, setList] = useState([])
+    const [enrollments, setEnrollments] = useState([])
+    useEffect(() => {
+        (async () => {
+          let response = await getAllReceipts()
+          if (response.status === 200) {
+            setList(response.data)
+          }
+          // response = await getAllForms()
+          // if (response.status === 200) {
+          //     for (let i = 0; i < response.data.length; i++){
+          //       response.data[i]['soTienThu'] = response.data[i].trangThai
+          //       delete response.data[i]['trangThai']
+          //     }
+          //     setEnrollments(response.data)
+          // }
+        })()
+    }, [])
+
     const item = [
         { label: 'Lập hồ sơ sinh viên', link: "/hssv" },
         { label: 'Nhập danh sách môn học', link: "/dsmh" },
@@ -12,7 +38,6 @@ const Thp = () => {
         { label: 'Lập báo cáo sinh viên chưa đóng HP', link: "/Svcdhp" },
     ]
     const defaultsc = " text-white"
-  const defaultsc1 = " text-black"
     const items = [
         { label: 'STT',position: defaultsc},
         { label: 'SỐ PHIẾU',position: defaultsc  },
@@ -20,28 +45,39 @@ const Thp = () => {
         { label: 'NGÀY LẬP',position: defaultsc  },
         { label: 'TỔNG SỐ TIỀN',position: defaultsc  },
     ]
-    const items3 = [
-      { label: 'STT',position: defaultsc1},
-      { label: 'SỐ PHIẾU',position: defaultsc1  },
-      { label: 'MSSV',position: defaultsc1  },
-      { label: 'NGÀY LẬP',position: defaultsc1  },
-      { label: 'TỔNG SỐ TIỀN',position: defaultsc1  },
-  ]
+    
     const Label = "THU HỌC PHÍ"
     const items1 = [
-      { label: 'SỐ PHIẾU', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6'  },
-      { label: 'NGÀY LẬP', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6'},
-      { label: 'MÃ SỐ SINH VIÊN', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6'},
-      { label: 'SỐ TIỀN THU', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6' },
+      { label: 'SỐ PHIẾU', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', state: soPhieu, setState: setSoPhieu  },
+      { label: 'NGÀY LẬP', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', state: date, setState: setDate},
+      { label: 'MÃ SỐ SINH VIÊN', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', state: mssv, setState: setMssv},
       ]
       
       const items2 = [
-       
+      //  { label: 'STT',position: defaultsc},
+      //   { label: 'SỐ PHIẾU',position: defaultsc  },
+      //   { label: 'MSSV',position: defaultsc  },
+      //   { label: 'NGÀY LẬP',position: defaultsc  },
+      //   { label: 'TỔNG SỐ TIỀN',position: defaultsc  },
+      ]
+
+      const items3 = [
+        { label: 'STT',position: defaultsc},
+        { label: 'SỐ PHIẾU',position: defaultsc  },
+        { label: 'MSSV',position: defaultsc  },
+        { label: 'NGÀY LẬP',position: defaultsc  },
+        { label: 'TRẠNG THÁI',position: defaultsc  }
       ]
     return (
-      <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label} value4={items3}>
-          <Searchbar/>
+      <>
+        <DefaultLayout value3={item} value={items3} value1={items1} value2={items2} label={Label} value4={enrollments} data={data} setData={setData} setList={setList} >
+          <Searchbar setList={setEnrollments}/>
+          <h3 className='mt-3 text-gray-800'>DANH SÁCH PHIẾU THU HỌC PHÍ</h3>
+          <List items={items} items1={list} />
+          <h3 className='mt-3 text-gray-800'>DANH SÁCH PHIẾU ĐĂNG KÝ HỌC PHẦN</h3>
         </DefaultLayout>
+        
+      </>
     )
 }
 export default Thp

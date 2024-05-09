@@ -10,20 +10,23 @@ import Thp from './pages/thp'
 import Svcdhp from './pages/svcdhp'
 import Svdkhp from './pages/svdkhp'
 import Tthp from './pages/tthp'
+import { UserContextProvider } from './context/userContext'
 function App() {
   return (
-    <Routes>
-      <Route path='/' element={<Login />} />
-      <Route path='/hssv' element={<Hssv />} />
-      <Route path='/cth' element={<Cth />} />
-      <Route path='/mmtk' element={<Mmtk />} />
-      <Route path='/dkhp' element={<Dkhp />} />
-      <Route path='/thp' element={<Thp />} />
-      <Route path='/dsmh' element={<Dsmh />} />
-      <Route path='/svcdhp' element={<Svcdhp />} />
-      <Route path='/svdkhp' element={<Svdkhp />} />
-      <Route path='/tthp' element={<Tthp />} />
-    </Routes>
+    <UserContextProvider>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/hssv' element={<Hssv />} />
+        <Route path='/cth' element={<Cth />} />
+        <Route path='/mmtk' element={<Mmtk />} />
+        <Route path='/dkhp' element={<Dkhp />} />
+        <Route path='/thp' element={<Thp />} />
+        <Route path='/dsmh' element={<Dsmh />} />
+        <Route path='/svcdhp' element={<Svcdhp />} />
+        <Route path='/svdkhp' element={<Svdkhp />} />
+        <Route path='/tthp' element={<Tthp />} />
+      </Routes>
+    </UserContextProvider>
   )
 }
 

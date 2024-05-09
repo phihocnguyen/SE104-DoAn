@@ -1,8 +1,43 @@
-import React from "react"
+import { useEffect, useState } from "react"
 import DefaultLayout from "../components/DefaultLayout"
-import { FaTrash } from "react-icons/fa";
-import { FaPen } from "react-icons/fa";
+// import { FaTrash } from "react-icons/fa";
+// import { FaPen } from "react-icons/fa";
+import { getAllSubjects } from "../api/subject";
+import { getAllPrograms } from "../api/program";
 const Cth = () => {
+  const [major, setMajor] = useState('')
+  const [department, setDepartment] = useState('')
+  const [semester, setSemester] = useState('')
+  const [courseName, setCourseName] = useState('')
+  const [courseList, setCourseList] = useState([])
+  const [data, setData] = useState([])
+  const [programList, setProgramList] = useState([])
+  useEffect(() => {
+
+    (async () => {
+      try {
+          let response = await getAllSubjects()
+          if (response.status === 200) {
+              let data = response.data.map((course) => course.tenMonHoc)
+              setCourseList(data)
+            }
+
+            response = await getAllPrograms()
+            if (response.status === 200) {
+              let data = response.data
+              setProgramList(data)
+            }
+          }  catch (err) {
+            console.log(err)
+          }
+      })()
+
+      
+
+
+  }, [])
+
+
   const item = [
     { label: 'Lập hồ sơ sinh viên', link: "/hssv" },
     { label: 'Nhập danh sách môn học', link: "/dsmh" },
@@ -13,7 +48,7 @@ const Cth = () => {
     { label: 'Lập báo cáo sinh viên chưa đóng HP', link: "/Svcdhp" },
   ]
   const defaultsc = " text-white"
-  const defaultsc1 = " text-black"
+  // const defaultsc1 = " text-black"
   const items = [
     { label: 'STT', position: defaultsc },
     { label: 'NGÀNH HỌC', position: defaultsc },
@@ -22,14 +57,7 @@ const Cth = () => {
     { label: 'TÊN MÔN HỌC', position: defaultsc },
     { label: '', position: defaultsc },
   ]
-  const items3 = [
-    { label: 'STT', position: defaultsc1 },
-    { label: 'NGÀNH HỌC', position: defaultsc1},
-    { label: 'KHOA', position: defaultsc1 },
-    { label: 'HỌC KỲ', position: defaultsc1 },
-    { label: 'TÊN MÔN HỌC', position: defaultsc1 },
-    { label: <div className="flex justify-center"> <FaPen/> <FaTrash className="ml-2"/> </div>, type:'button', position: defaultsc1 },
-  ]
+  
   const Label = "CHƯƠNG TRÌNH HỌC"
 
   const items1 = [
@@ -37,13 +65,13 @@ const Cth = () => {
   ]
 
   const items2 = [
-    { label: 'NGÀNH HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Nam', 'Nữ'] },
-    { label: 'KHOA', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Quảng Nam', 'TP Hồ Chí Minh'] },
-    { label: 'HỌC KỲ', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Quận 1', 'Quận 2'] },
-    { label: 'TÊN MÔN HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Kỹ thuật phần mềm', 'Khoa học máy tính'] },
+    { label: 'NGÀNH HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn ngành học', 'Kỹ thuật phần mềm', 'Khoa học máy tính'], state: major, setState: setMajor },
+    { label: 'KHOA', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn khoa', 'Khoa học máy tính', 'Công nghệ phần mềm'], state: department, setState: setDepartment },
+    { label: 'HỌC KỲ', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn học kỳ', 'Học kỳ 1', 'Học kỳ 2', 'Học kỳ hè'], state: semester, setState: setSemester },
+    { label: 'TÊN MÔN HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: courseList, state: courseName, setState: setCourseName },
   ]
   return (
-    <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label} value4={items3}>
+    <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label} value4={programList} setList = {setProgramList} setData={setData} data = {data} >
     </DefaultLayout>
   )
 }

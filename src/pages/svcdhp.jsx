@@ -1,10 +1,12 @@
-import React from "react"
 import Nav from "../components/Nav"
 import List from "../components/List"
 import Searchbar from "../components/Searchbar"
+import { useState } from "react"
 const Svcdhp = () => {
+  const [loading, setLoading] = useState(true)
+  const [studentList, setStudentList] = useState([])
+
   const defaultsc = " text-white"
-  const defaultsc1 = " text-black"
   const item = [
     { label: 'Lập hồ sơ sinh viên', link: "/hssv" },
     { label: 'Nhập danh sách môn học', link: "/dsmh" },
@@ -21,19 +23,19 @@ const Svcdhp = () => {
     { label: 'SỐ TIỀN PHẢI ĐÓNG', position: defaultsc },
     { label: 'SỐ TIỀN CÒN LẠI', position: defaultsc },
   ]
-  const items1 = [
-    { label: 'STT', position: defaultsc1 },
-    { label: 'MÃ SỐ SINH VIÊN', position: defaultsc1 },
-    { label: 'SỐ TIỀN ĐĂNG KÝ', position: defaultsc1 },
-    { label: 'SỐ TIỀN PHẢI ĐÓNG', position: defaultsc1 },
-    { label: 'SỐ TIỀN CÒN LẠI', position: defaultsc1 },
-  ]
+  // const items1 = [
+  //   { label: 'STT', position: defaultsc1 },
+  //   { label: 'MÃ SỐ SINH VIÊN', position: defaultsc1 },
+  //   { label: 'SỐ TIỀN ĐĂNG KÝ', position: defaultsc1 },
+  //   { label: 'SỐ TIỀN PHẢI ĐÓNG', position: defaultsc1 },
+  //   { label: 'SỐ TIỀN CÒN LẠI', position: defaultsc1 },
+  // ]
   return (
     <div className='grid grid-cols-12'>
-      <Nav items={item} />
+      <Nav items={item} loading={loading} setLoading={setLoading} />
       <main className='col-span-9 mr-16'>
-        <Searchbar />
-        <List items={items} items1={items1} />
+        <Searchbar setList={setStudentList}/>
+        <List items={items} items1={studentList} />
       </main>
     </div>
   )
