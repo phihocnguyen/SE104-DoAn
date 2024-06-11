@@ -3,24 +3,29 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import { getEnrollmentsBySemester } from "../../api/enrollment";
 import { useLocation } from "react-router-dom";
 import { getAllFormsBySemester } from "../../api/form";
-import { getStudentsNotPaid } from "../../api/fee";
-const Searchbar = ({setList}) => {
+import { getAllReceiptsBySemester, getStudentsNotPaid } from "../../api/fee";
+const Searchbar = ({setList, loading, setLoading, setList1}) => {
     const [hocKy, setHocKy] = useState('')
     const [namHoc, setNamHoc] = useState('')
     const location = useLocation()
     const handleSearch = async () => {
         try {
+            setLoading(true)
             if(location.pathname === '/dkhp') {
                 const response = await getEnrollmentsBySemester({hocKy, namHoc})
                 if (response?.status === 200) setList(response.data) 
             } else if (location.pathname === '/thp') {
-                const response = await getAllFormsBySemester({hocKy, namHoc})
+                let response = await getAllFormsBySemester({hocKy, namHoc})
                 if (response?.status === 200) {
                     for (let i = 0; i < response.data.length; i++){
                         response.data[i]['soTienThu'] = response.data[i].trangThai
                         delete response.data[i]['trangThai']
                     }
                     setList(response?.data)
+                }
+                response = await getAllReceiptsBySemester({hocKy, namHoc})
+                if (response?.status === 200) {
+                    setList1(response?.data)
                 }
             } else {
                 const response = await getStudentsNotPaid({hocKy, namHoc})
@@ -33,6 +38,7 @@ const Searchbar = ({setList}) => {
         } catch (err) {
             console.log(err)
         }
+        setLoading(false)
     }
 
     return (

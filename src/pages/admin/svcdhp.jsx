@@ -1,6 +1,6 @@
-import Nav from "../components/Nav"
-import List from "../components/List"
-import Searchbar from "../components/Searchbar"
+import Nav from "../../components/Nav"
+import List from "../../components/List"
+import Searchbar from "../../components/Searchbar"
 import { useState } from "react"
 const Svcdhp = () => {
   const [loading, setLoading] = useState(true)
@@ -23,18 +23,11 @@ const Svcdhp = () => {
     { label: 'SỐ TIỀN PHẢI ĐÓNG', position: defaultsc },
     { label: 'SỐ TIỀN CÒN LẠI', position: defaultsc },
   ]
-  // const items1 = [
-  //   { label: 'STT', position: defaultsc1 },
-  //   { label: 'MÃ SỐ SINH VIÊN', position: defaultsc1 },
-  //   { label: 'SỐ TIỀN ĐĂNG KÝ', position: defaultsc1 },
-  //   { label: 'SỐ TIỀN PHẢI ĐÓNG', position: defaultsc1 },
-  //   { label: 'SỐ TIỀN CÒN LẠI', position: defaultsc1 },
-  // ]
   return (
     <div className='grid grid-cols-12'>
       <Nav items={item} loading={loading} setLoading={setLoading} />
       <main className='col-span-9 mr-16'>
-        <Searchbar setList={setStudentList}/>
+        <Searchbar setLoading={setLoading} setList={setStudentList}/>
         <List items={items} items1={studentList} />
       </main>
     </div>

@@ -1,14 +1,15 @@
 import { useContext, useState } from "react";
 import { BiSolidHide } from "react-icons/bi";
 import { BiSolidShow } from "react-icons/bi";
-import { Link, useNavigate } from "react-router-dom"
-import { login } from "../api/auth";
+import { useNavigate } from "react-router-dom"
 import { userContext } from "../context/userContext";
+import { login } from "../api/auth";
 const Login = () => {
     const [showPassword,setShowPassword] = useState(false)    
     const [username,setUsername] = useState('')
     const [password, setPassword] = useState('')
     const {setUserInfo} = useContext(userContext)
+    const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
     const handleSubmit = async e => {
         e.preventDefault()
@@ -17,11 +18,14 @@ const Login = () => {
             password
         }
         const response = await login(data)
-        console.log(response)
         if (response.status === 200) {
             setUserInfo(response.data)
             localStorage.setItem('info', JSON.stringify(response.data))
-            navigate('/hssv')
+            if (response.data.role === 1){
+                navigate('/hssv')
+            } else navigate('/student/svdkhp')
+        } else {
+            setErrorMessage('Tài khoản hoặc mật khẩu không đúng')
         }
     }
   return (
@@ -33,6 +37,7 @@ const Login = () => {
             </div>
             <div className="w-[30%] h-full flex flex-col justify-center px-6">
                 <h2 className="text-black text-center font-bold text-[18px]">ĐĂNG NHẬP</h2>
+                {errorMessage && <p className="mt-4 text-[12px] text-red-500 w-[full] bg-red-100 py-2 rounded-md text-center">{errorMessage}</p>}
                 <form className="mt-4" onSubmit={handleSubmit}>
                     <div className="flex flex-col">
                         <label className="text-[12px] font-normal text-[#666666]" htmlFor="mssv" >Mã số sinh viên</label>

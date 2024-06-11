@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-const baseURL = 'http://localhost:3333/api'
+import { baseURL } from './config'
 
 export const login = async (data) => {
     try {
@@ -10,6 +9,7 @@ export const login = async (data) => {
         return response
     } catch (err) {
         console.log(err)
+        return err.response
     }
 }
 

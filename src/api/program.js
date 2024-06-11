@@ -1,19 +1,27 @@
 import axios from "axios";
-
-const base_URL = 'http://localhost:3333/api/'
+import { baseURL } from "./config";
 
 export const createProgram = async (data) => {
     try {
-        const response = await axios.post(`${base_URL}/program/create`, data)
+        const response = await axios.post(`${baseURL}/program/create`, data)
         return response
     } catch (err) {
         console.log(err)
+        return err.response
     }
 }
 
 export const getAllPrograms = async () => {
     try {
-        const response = await axios.get(`${base_URL}/program/allprograms`)
+        const response = await axios.get(`${baseURL}/program/allprograms`)
+        return response
+    } catch (err) {
+        console.log(err)
+    }
+}
+export const deleteProgram = async (id) => {
+    try {
+        const response = await axios.delete(`${baseURL}/program/delete/${id}`)
         return response
     } catch (err) {
         console.log(err)

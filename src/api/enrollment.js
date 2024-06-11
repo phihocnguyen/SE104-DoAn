@@ -1,10 +1,19 @@
 import axios from "axios";
-const base_URL = 'http://localhost:3333/api'
+import { baseURL } from "./config";
+
+export const createEnrollment = async (data) => {
+    try {
+        const response = await axios.post(`${baseURL}/enrollment/create`, data)
+        if (response) return response
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 export const getEnrollmentsBySemester = async (data) => {
     try {
         const { hocKy, namHoc } = data
-        const response = await axios.get(`${base_URL}/enrollment/allenrollmentsbysemester/?hocKy=${hocKy}&namHoc=${namHoc}`)
+        const response = await axios.get(`${baseURL}/enrollment/allenrollmentsbysemester/?hocKy=${hocKy}&namHoc=${namHoc}`)
         if (response) return response
     } catch (err) {
         console.log(err)
@@ -13,7 +22,7 @@ export const getEnrollmentsBySemester = async (data) => {
 
 export const getEnrollmentsByMssv = async (mssv) => {
     try {
-        const response = await axios.get(`${base_URL}/enrollment/allenrollmentsbymssv/${mssv}`)
+        const response = await axios.get(`${baseURL}/enrollment/allenrollmentsbymssv/${mssv}`)
         if (response) return response
     } catch (err) {
         console.log(err)
@@ -22,7 +31,7 @@ export const getEnrollmentsByMssv = async (mssv) => {
 
 export const getAllEnrollments = async () => {
     try {
-        const response = await axios.get(`${base_URL}/enrollment/allenrollments`)
+        const response = await axios.get(`${baseURL}/enrollment/allenrollments`)
         if (response) return response
     } catch (err) {
         console.log(err)

@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import NavItem from './NavItem'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IoMdMenu } from "react-icons/io";
 import { RxAvatar } from "react-icons/rx";
 import { MdOutlineLogout } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom"
-import { userContext } from '../../context/userContext';
-import { getUser, logout } from '../../api/auth';
+import { logout } from '../../api/auth';
 import Loading from '../Loading';
 
 const NavItemsContainer = ({ items }) => (
@@ -28,7 +27,7 @@ const 	Nav = ({ items, loading, setLoading }) => {
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false)
-		}, 500)
+		}, 1000)
 	}, [setLoading])
 
 	useEffect(() => {
@@ -68,9 +67,9 @@ const 	Nav = ({ items, loading, setLoading }) => {
 					<Link to={window.location.pathname === "/svdkhp" ? "/hssv" : "/svdkhp"} type="button" >
 						<div className=' mt-1 ml-14 rounded-[10px] w-[250px] h-[230px] bg-[#1d1c34] flex justify-center '>
 							<div className='mt-5 w-28 h-28 bg-white rounded-full flex justify-center' />
-							<img className="mt-7 w-24 h-24  absolute rounded-full" src="https://img.freepik.com/free-photo/3d-rendering-zoom-call-avatar_23-2149556777.jpg?t=st=1714234508~exp=1714238108~hmac=22fab367121cbcd29064e092f51516f60634310616d25c93d6847c72f14cb5c3&w=1480" />
-							<h3 className='absolute mt-36  text-white z-[9999]'>{user.id}</h3>
-							<h3 className='absolute mt-44 text-white z-[9999]'>22520487 {user.role}</h3>
+							<img className="mt-7 w-24 h-24  absolute rounded-full" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Logo_UIT_updated.svg" />
+							<h3 className='absolute mt-36  text-white z-[9999]'>{user.name ? user.name : "Admin"}</h3>
+							<h3 className='absolute mt-44 text-white z-[9999]'>{user.mssv ? user.mssv : "Phòng đào tạo"}</h3>
 						</div>
 					</Link>
 				</div>

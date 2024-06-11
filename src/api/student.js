@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-const baseURL = 'http://localhost:3333/api'
+import { baseURL } from './config'
 
 export const createStudent = async (data) => {
     try {
@@ -10,6 +9,7 @@ export const createStudent = async (data) => {
         if (response) return response
     } catch (err) {
         console.log(err)
+        return err.response
     }
 }
 
@@ -19,5 +19,32 @@ export const getAllStudents = async () => {
         if (response) return response
     } catch (err) {
         console.log(err)
+    }
+}
+
+export const getStudent = async (mssv) => {
+    try {
+        const response = await axios.get(`${baseURL}/student/detail/${mssv}`)
+        if (response) return response
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const updateStudent = async (mssv, data) => {
+    try {
+        const response = await axios.put(`${baseURL}/student/edit/${mssv}`, data)
+        if (response) return response
+    } catch (err) {
+        return err.response
+    }
+}
+
+export const deleteStudent = async (mssv) => {
+    try {
+        const response = await axios.delete(`${baseURL}/student/delete/${mssv}`)
+        if (response) return response
+    } catch (err) {
+        return err.response
     }
 }

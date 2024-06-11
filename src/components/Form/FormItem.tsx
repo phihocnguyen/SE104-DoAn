@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import slugify from "../../utils/slugify";
+import { getAllSubjectsBySemester } from "../../api/subject";
 
 export interface Item {
     label: string
@@ -21,8 +22,17 @@ const DDMItemsContainer = ({ options }: { options: string[] }) => (
 )
 
 function DDMbox ({item, data, setData}) {
-    const { label, position, haveDDM , margin, marrow, mlabel, options, state, setState} = item
-    const handleState = (e) => {
+    const { label, position, haveDDM , margin, marrow, mlabel, options, state, setState, setCourseList} = item
+    
+    const handleState = async (e) => {
+            if (location.pathname === '/mmtk' && e.target.value === 'Học kỳ 1' || e.target.value === 'Học kỳ 2' || e.target.value === 'Học kỳ hè') {
+                let response = await getAllSubjectsBySemester(e.target.value)
+                if (response?.status === 200) {
+                    let data = response.data.map((course) => course.tenMonHoc)
+                    data.unshift('Chọn môn học')
+                    setCourseList(data)
+                }            
+            }
             setState(e.target.value)
             setData(prevState => ({...prevState, [slugify(label)]: e.target.value}))
         }
@@ -35,14 +45,8 @@ function DDMbox ({item, data, setData}) {
         </div>
         <div className={`relative flex ${margin} items-center`}>
             <select  onChange={handleState} className=" w-5/6 text-[13px] mt-3 pl-2 border border-neutral-400 text-gray-700 h-[45px] rounded-md focus:outline-none focus:bg-white focus:border-neutral-400">
-            {/* <select  className="" onClick={() => setIsOpen(!isOpen)}>
-            {options && <DDMItemsContainer options={options} />}
-            </select> */}
             {options && <DDMItemsContainer options={options} />}
             </select>
-            {/* <button className={` absolute inset-y-0 right-0 ${marrow} flex items-center px-2 text-gray-700`} >
-                <RiArrowDropDownLine className='cursor-pointer  w-7 h-7' onClick={() => setIsOpen(!isOpen)}/>
-            </button> */}
         </div>
 
     </div>

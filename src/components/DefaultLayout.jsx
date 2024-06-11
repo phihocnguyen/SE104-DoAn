@@ -2,9 +2,7 @@
 import Nav from './Nav'
 import List from './List'
 import Form from './Form'
-import { useState } from 'react'
-const DefaultLayout = ({ children, value, value1, value2, value3, label,value4, selectValue, data, setData, setList }) => {
-    const [loading, setLoading] = useState(true)
+const DefaultLayout = ({ children, value, value1, value2, value3, label,value4, selectValue, data, setData, setList, loading, setLoading }) => {
 
   
   return (
@@ -12,7 +10,7 @@ const DefaultLayout = ({ children, value, value1, value2, value3, label,value4, 
       <Nav items={value3} loading={loading} setLoading={setLoading} />
       <main className='col-span-6'>
         {children}
-        <List items={value} items1={value4} />
+        <List loading={loading} setLoading={setLoading} items={value} items1={value4} />
       </main>
           <Form items={value1} items1={value2} label={label} selectValue = {selectValue} data = {data} setData = {setData} setList = {setList} setLoading = {setLoading} />
     </div>

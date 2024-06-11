@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react"
-import DefaultLayout from "../components/DefaultLayout"
-import { FaTrash } from "react-icons/fa";
-import { FaPen } from "react-icons/fa";
-import { getAllSubjects } from "../api/subject";
+import { useEffect, useState } from "react"
+import DefaultLayout from "../../components/DefaultLayout"
+import { getAllSubjects } from "../../api/subject";
 const Dsmh = () => {
   const [maMH, setMaMH] = useState('')
   const [courseName, setCourseName] = useState('')
@@ -10,6 +8,7 @@ const Dsmh = () => {
   const [soTiet, setSoTiet] = useState(0)
   const [data, setData] = useState({})
   const [subjects, setSubjects] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
         ( async () => {
@@ -31,7 +30,6 @@ const Dsmh = () => {
   ]
   const Label = "DANH SÁCH MÔN HỌC"
   const defaultsc = " text-white"
-  const defaultsc1 = " text-black"
   const items = [
     { label: 'STT', position: defaultsc },
     { label: 'MÃ MÔN HỌC', position: defaultsc },
@@ -40,14 +38,7 @@ const Dsmh = () => {
     { label: 'SỐ TIẾT', position: defaultsc },
     { label: '', position: defaultsc },
   ]
-  const items3 = [
-    { label: 'STT', position: defaultsc1 },
-    { label: 'MÃ MÔN HỌC', position: defaultsc1 },
-    { label: 'TÊN MÔN HỌC', position: defaultsc1 },
-    { label: 'LOẠI MÔN', position: defaultsc1 },
-    { label: 'SỐ TIẾT', position: defaultsc1 },
-    { label: <div className="flex justify-center"> <FaPen/> <FaTrash className="ml-2"/> </div>, type:'button', position: defaultsc1 },
-  ]
+  
   const items1 = [
 
   ]
@@ -55,11 +46,11 @@ const Dsmh = () => {
   const items2 = [
     { label: 'MÃ MÔN HỌC', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Nam', 'Nữ'], state: maMH, setState: setMaMH },
     { label: 'TÊN MÔN HỌC', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Quảng Nam', 'TP Hồ Chí Minh'], state: courseName, setState: setCourseName },
-    { label: 'LOẠI MÔN', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Quận 1', 'Quận 2'], state: type, setState: setType },
+    { label: 'LOẠI MÔN', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn loại môn', 'Lý thuyết', 'Thực hành' ], state: type, setState: setType },
     { label: 'SỐ TIẾT', haveDDM: false, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Kỹ thuật phần mềm', 'Khoa học máy tính'], state: soTiet, setState: setSoTiet },
   ]
   return (
-    <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label} value4={subjects} data ={data} setData={setData} setList={setSubjects} >
+    <DefaultLayout loading={loading} setLoading={setLoading} value3={item} value={items} value1={items1} value2={items2} label={Label} value4={subjects} data ={data} setData={setData} setList={setSubjects} >
     </DefaultLayout>
   )
 }

@@ -21,10 +21,12 @@ const FormItemsContainer = ({items,items1, selectValue, data, setData}) => {
         (async () => {
             try {
               if(location.pathname === '/hssv') {
-                let result = await axios.get('https://thongtindoanhnghiep.co/api/city')
-                result = result.data.LtsItem
+                let result = await axios.get('https://web-staging.ghtklab.com/api/v1/public/address/list'  
+                  
+                )
+                result = result.data.data
                 setProvineList(result)
-                result = result.map((provine) => provine.Title)
+                result = result.map((provine) => provine.name)
                 setFilterProvineList(result) 
               }
             } catch (err) {
@@ -34,11 +36,9 @@ const FormItemsContainer = ({items,items1, selectValue, data, setData}) => {
     }, [location.pathname])
 
     const handleGetDistrictData = async (value) => {
-        console.log(value)
-        const provine = provineList.find((provine) => provine.Title === value) 
-        console.log(provine)
-        let districtList = await axios.get(`https://thongtindoanhnghiep.co/api/city/${provine.ID}/district`)
-        districtList = districtList.data.map((district) => district.Title)
+        const provine = provineList.find((provine) => provine.name === value) 
+        let districtList = await axios.get(`https://web-staging.ghtklab.com/api/v1/public/address/list?parentId=${provine.id}&type=3`)
+        districtList = districtList.data.data.map((district) => district.name)
         setDistrictList(districtList)
         setData(prevState => ({...prevState, huyen: value}) )
     }
@@ -58,15 +58,15 @@ return (
 	</>
 	<>
       {location.pathname === '/hssv' && 
-      <div className='flex items-center'>
-        <div className='flex flex-col justify-between mb-2 w-[calc(50%-8px)]' >
+      <div className=''>
+        <div className='flex flex-col' >
         
           <div className='col-start2'>
-            <div className={`ml-6 flex justify-start`}>
+            <div className={`ml-6 flex`}>
                 <h3 className="text-black text-[11px]">TỈNH / THÀNH PHỐ</h3>
                 <div className="mt-2.5 ml-1 text-rose-500 text-[11px]">*</div>
             </div>
-            <div className={`relative flex justify-end items-center`}>
+            <div className={`relative flex justify-center items-center`}>
                 <select onChange={(e) => handleGetDistrictData(e.target.value)} className=" w-5/6 text-[13px] mt-3 pl-2 border border-neutral-400 text-gray-700 h-[45px] rounded-md focus:outline-none focus:bg-white focus:border-neutral-400">
                   <option value='' >Chọn tỉnh / thành phố</option>
                   {filterProvineList.map((provine, index) => (
@@ -82,15 +82,16 @@ return (
 
         </div>
         </div>
-        <div className='flex flex-col justify-between mb-2 ml-4 w-[calc(50%-8px)]'>
+        <div className='flex flex-col mb-2'>
         
           <div className='col-start2'>
-            <div className={` flex justify-start`}>
+            <div className={`flex ml-6`}>
                 <h3 className="text-black text-[11px]">QUẬN / HUYỆN</h3>
                 <div className="mt-2.5 ml-1 text-rose-500 text-[11px]">*</div>
             </div>
-            <div className={`relative flex justify-start items-center`}>
+            <div className={`relative flex justify-center items-center`}>
                 <select onChange={handleDistrictValue} className=" w-5/6 text-[13px] mt-3 pl-2 border border-neutral-400 text-gray-700 h-[45px] rounded-md focus:outline-none focus:bg-white focus:border-neutral-400">
+                  <option value='' >Chọn quận / huyện</option>
                     {districtList.map((provine, index) => (
                     <option key ={index} value = {provine}>{provine}</option>
                   )
@@ -114,10 +115,11 @@ return (
 </>
 )
 }
-const Form = ({items,items1,label, selectValue, data, setData, setList, setLoading}) => {
+const   Form = ({items,items1,label, selectValue, data, setData, setList, setLoading}) => {
   const location = useLocation()
 
   const [isFormOpen, setIsFormOpen] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const handleSubmit = async (e) => {
       e.preventDefault()
 
@@ -128,11 +130,19 @@ const Form = ({items,items1,label, selectValue, data, setData, setList, setLoadi
 
         switch(location.pathname) {
           case  '/hssv': {
-            response = await createStudent(data)
+            const regex = new RegExp('^(((0[1-9]|[12][0-9]|30)[-/]?(0[13-9]|1[012])|31[-/]?(0[13578]|1[02])|(0[1-9]|1[0-9]|2[0-8])[-/]?02)[-/]?[0-9]{4}|29[-/]?02[-/]?([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00))$')
+            if (regex.test(data.ngaysinh)) {
+              response = await createStudent(data)
+            } else alert('Ngày sinh phải ở định dạng dd/MM/yyyy')
             break
           }
           case '/dsmh': {
             response = await createSubject(data)
+            if (response.status === 400) {
+              setLoading(false)
+              setErrorMessage('Mã môn học phải là duy nhất')
+              return
+            }
             break
           }
           case '/cth': {
@@ -145,26 +155,32 @@ const Form = ({items,items1,label, selectValue, data, setData, setList, setLoadi
           }
           case '/dkhp': {
             response = await createForm(data)
-            console.log(data)
             break
           }
           case '/thp': {
             response = await createReceipt(data)
-            break
+            if (response.status === 201) setList(prevState => [...prevState, response.data])
+            setLoading(false)
+            return
           }
         }
+        
 
         if (response.status === 201) {
-          setList(prevState => [...prevState, response.data])
+          setList(response.data)
           setLoading(false)
         }
-        setLoading(false)
+        else {
+          setLoading(false)
+          setErrorMessage('Vui lòng nhập đầy đủ các trường')
+        }
       } catch (err) {
         console.log(err)
       }
   }
   return (
     <form onSubmit={handleSubmit}>
+        
         <div className='col-span-3 mb-6'>
         <div className=' flex ml-[200px] '>
       <MdExpandMore
@@ -174,14 +190,16 @@ const Form = ({items,items1,label, selectValue, data, setData, setList, setLoadi
       <div
         className={`${isFormOpen ? '' : ' hidden'} md:block`}>
           <div className=' ml-5 mt-5 w-72  relative bg-white rounded-lg border border-black'>
-        <div className="grid grid-cols-2">
+
+        <div className="">
           <div className=' col-span-2 flex justify-center'>
             <h1 className='text-gray-800 mt-5 mb-5 text-xl font-extrabold'>{label}</h1>
           </div>
           <div className=' col-span-2 flex justify-center flex-col'>
             <FormItemsContainer items={items} items1={items1} selectValue = {selectValue} data = {data} setData = {setData} />
           </div>
-          <div className="col-span-2 mt-14 mb-6 flex justify-center">
+          {errorMessage && <p className="my-4 text-[12px] text-red-500 w-5/6 block mx-auto bg-red-100 py-2 rounded-md text-center">{errorMessage}</p>}
+          <div className="col-span-2 mt-2 mb-6 flex justify-center">
             <button onClick={handleSubmit} className='rounded-[10px] justify-center w-5/6 h-[50px] bg-transparent hover:bg-[#1d1c34] hover:text-white border border-[#1d1c34] hover:border-transparent flex items-center'>
               <h3 className='absolute z-[9999]'>XÁC NHẬN</h3>
             </button>

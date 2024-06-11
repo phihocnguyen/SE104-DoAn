@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react"
-import DefaultLayout from "../components/DefaultLayout"
-import Searchbar from "../components/Searchbar"
+import DefaultLayout from "../../components/DefaultLayout"
+import Searchbar from "../../components/Searchbar"
 const Dkhp = () => {
 
     const [enrollmentList, setEnrollmentList] = useState([])
@@ -11,7 +11,7 @@ const Dkhp = () => {
     const [date, setDate] = useState('')
     const [semester, setSemester] = useState('')
     const [schoolYear, setSchoolYear] = useState('')
-
+    const [loading, setLoading] = useState(true)
     const item = [
         { label: 'Lập hồ sơ sinh viên', link: "/hssv" },
         { label: 'Nhập danh sách môn học', link: "/dsmh" },
@@ -35,11 +35,11 @@ const Dkhp = () => {
     ]
     const items2 = [
         { label: 'HỌC KỲ', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn học kỳ', 'Học kỳ 1', 'Học kỳ 2', 'Học kỳ hè'], state: semester, setState: setSemester },
-        { label: 'NĂM HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn năm học', '2022-2023', '2023-2024'], state: schoolYear, setState: setSchoolYear },
+        { label: 'NĂM HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn năm học', '2023-2024', '2022-2023'], state: schoolYear, setState: setSchoolYear },
     ]
     return (
-        <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label} value4={enrollmentList} data = {data} setData = {setData} setList={setFormList}>
-            <Searchbar setList={setEnrollmentList} />
+        <DefaultLayout loading={loading} setLoading={setLoading} value3={item} value={items} value1={items1} value2={items2} label={Label} value4={enrollmentList} data = {data} setData = {setData} setList={setFormList}>
+            <Searchbar setList={setEnrollmentList} loading={loading} setLoading = {setLoading} />
             <h3 className='mt-3 text-gray-800'>DANH SÁCH THÔNG TIN ĐĂNG KÝ HỌC PHẦN</h3>
         </DefaultLayout>
     )

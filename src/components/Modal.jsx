@@ -10,9 +10,10 @@ const Modal = ({data, setOpenModal}) => {
     { label: 'SỐ TÍN CHỈ' },
   ]
   return (
-    <div className="px-8 w-[60%] h-[80%] shadow-md fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-md z-[9999999] ">
+    <div className=" px-8 w-[60%] h-[80%] shadow-md fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-md z-[9999999] ">
         <div onClick={() => setOpenModal(prevState => !prevState)}  className="mt-4 mb-4 ml-[auto] w-[40px] rounded-md text-red-500 hover:text-white duration-150 cursor-pointer hover:bg-red-400 flex justify-center "><FaTimes className="text-[24px]"/></div>
-        <table className="rounded-lg table-fixed max-h-[75%] w-full  bg-white border border-gray-800  ">
+        <div className="h-[80%] overflow-hidden overflow-y-scroll">
+          <table className="mb-8 table-fixed w-full  bg-white border border-gray-800  ">
                 <thead className="h-[20%] bg-gray-800 rounded-t-lg h-18">
                     <tr className='w-full px-4 py-3 flex justify-start items-center '>
                         {items.map((item, index) => (
@@ -24,7 +25,7 @@ const Modal = ({data, setOpenModal}) => {
                         ))}
                     </tr>
                 </thead>
-                <tbody >
+                <tbody className="">
                     {data.map((item, index) => (
                         <tr key = {index} className="px-4 py-3 flex items-center">
                             <th className={`w-1/3`} >
@@ -46,6 +47,7 @@ const Modal = ({data, setOpenModal}) => {
                     ))}
                 </tbody>
           </table>
+        </div>
     </div>
   )
 }

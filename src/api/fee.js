@@ -1,19 +1,19 @@
 import axios from "axios";
-
-const base_URL = 'http://localhost:3333/api'
+import { baseURL } from "./config";
 
 export const createReceipt = async (data) => {
     try {
-        const response = await axios.post(`${base_URL}/fee/create`, data)
+        const response = await axios.post(`${baseURL}/fee/create`, data)
         if (response) return response
     } catch (err) {
         console.log(err)
+        return err.response
     }
 }
 
-export const getAllReceipts = async () => {
+export const getAllReceiptsBySemester = async ({hocKy, namHoc}) => {
     try {
-        const response = await axios.get(`${base_URL}/fee/allreceipts`)
+        const response = await axios.get(`${baseURL}/fee/allreceipts/?hocKi=${hocKy}&namHoc=${namHoc}`)
         if (response) return response
     } catch (err) {
         console.log(err)
@@ -22,7 +22,25 @@ export const getAllReceipts = async () => {
 
 export const getStudentsNotPaid = async ({ hocKy, namHoc }) => {
     try {
-        const response = await axios.get(`${base_URL}/fee/studentsnotpaid/?hocKi=${hocKy}&namHoc=${namHoc}`)
+        const response = await axios.get(`${baseURL}/fee/studentsnotpaid/?hocKi=${hocKy}&namHoc=${namHoc}`)
+        if (response) return response
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const getReceiptByMssv = async (mssv) => {
+    try {
+        const response = await axios.get(`${baseURL}/fee/receiptbymssv/${mssv}`)
+        if (response) return response
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const pay = async ({ mssv, soPhieu, price }) => {
+    try {
+        const response = await axios.put(`${baseURL}/fee/pay/${soPhieu}`, { mssv, price })
         if (response) return response
     } catch (err) {
         console.log(err)

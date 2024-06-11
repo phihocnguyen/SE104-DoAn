@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import DefaultLayout from "../components/DefaultLayout"
-import { FaTrash } from "react-icons/fa";
-import { FaPen } from "react-icons/fa";
-import axios from "axios";
-import { getAllStudents } from "../api/student";
+import DefaultLayout from "../../components/DefaultLayout"
+import { getAllStudents } from "../../api/student";
 const Hssv = () => {
     const [name, setName] = useState('')
     const [birthday, setBirthday] = useState('')
@@ -11,6 +8,7 @@ const Hssv = () => {
     const [major, setMajor] = useState('')
     const [data, setData] = useState({})
     const [students, setStudents] = useState([])
+    const [loading, setLoading] = useState(true)
     const Label = "HỒ SƠ SINH VIÊN"
     const defaultsc = " text-white"
     // const defaultsc1 = " text-black"
@@ -37,6 +35,7 @@ const Hssv = () => {
     ]
     const items = [
         { label: 'STT', position: defaultsc },
+        { label: 'MSSV', position: defaultsc },
         { label: 'HỌ VÀ TÊN', position: defaultsc },
         { label: 'NGÀY SINH', position: defaultsc },
         { label: 'GIỚI TÍNH', position: defaultsc },
@@ -51,16 +50,16 @@ const Hssv = () => {
     ]
 
     const items2 = [
-        { label: 'GIỚI TÍNH', haveDDM: true, position: 'col-start-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Nam', 'Nữ'], state: sex, setState: setSex },
+        { label: 'GIỚI TÍNH', haveDDM: true, position: 'col-start-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn giới tính', 'Nam', 'Nữ'], state: sex, setState: setSex },
         // { label: 'TỈNH', haveDDM: true, position: 'col-start-1', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: filterProvineList },
         // { label: 'HUYỆN', haveDDM: true, position: 'col-start-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: districtList },
-        { label: 'NGÀNH HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Kỹ thuật phần mềm', 'Khoa học máy tính'], state: major, setState: setMajor },
+        { label: 'NGÀNH HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn ngành học', 'Kỹ thuật phần mềm', 'Khoa học máy tính'], state: major, setState: setMajor },
     ]
 
 
 
     return (
-        <DefaultLayout setList = {setStudents} value3={item} value={items} value1={items1} value2={items2} label={Label} value4={students} data = {data} setData = {setData}>
+        <DefaultLayout loading={loading} setLoading={setLoading} setList = {setStudents} value3={item} value={items} value1={items1} value2={items2} label={Label} value4={students} data = {data} setData = {setData}>
             
         </DefaultLayout>
     )

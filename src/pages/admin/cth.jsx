@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import DefaultLayout from "../components/DefaultLayout"
+import DefaultLayout from "../../components/DefaultLayout"
 // import { FaTrash } from "react-icons/fa";
 // import { FaPen } from "react-icons/fa";
-import { getAllSubjects } from "../api/subject";
-import { getAllPrograms } from "../api/program";
+import { getAllSubjects } from "../../api/subject";
+import { getAllPrograms } from "../../api/program";
 const Cth = () => {
   const [major, setMajor] = useState('')
   const [department, setDepartment] = useState('')
@@ -12,6 +12,7 @@ const Cth = () => {
   const [courseList, setCourseList] = useState([])
   const [data, setData] = useState([])
   const [programList, setProgramList] = useState([])
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
 
     (async () => {
@@ -19,6 +20,7 @@ const Cth = () => {
           let response = await getAllSubjects()
           if (response.status === 200) {
               let data = response.data.map((course) => course.tenMonHoc)
+              data.unshift('Chọn môn học')
               setCourseList(data)
             }
 
@@ -51,6 +53,7 @@ const Cth = () => {
   // const defaultsc1 = " text-black"
   const items = [
     { label: 'STT', position: defaultsc },
+    { label: 'ID', position: defaultsc },
     { label: 'NGÀNH HỌC', position: defaultsc },
     { label: 'KHOA', position: defaultsc },
     { label: 'HỌC KỲ', position: defaultsc },
@@ -71,7 +74,7 @@ const Cth = () => {
     { label: 'TÊN MÔN HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: courseList, state: courseName, setState: setCourseName },
   ]
   return (
-    <DefaultLayout value3={item} value={items} value1={items1} value2={items2} label={Label} value4={programList} setList = {setProgramList} setData={setData} data = {data} >
+    <DefaultLayout loading={loading} setLoading={setLoading} value3={item} value={items} value1={items1} value2={items2} label={Label} value4={programList} setList = {setProgramList} setData={setData} data = {data} >
     </DefaultLayout>
   )
 }
