@@ -8,7 +8,11 @@ export default {
     extend: {
       fontFamily:{
         roboto:['Roboto']
-      }
+      },
+      backgroundImage: {
+        'custom-image': "url('/src/assets/bglogin.jpg')",
+        'login-image': "url('/src/assets/imglogin.png')",
+      },
     },
   },
   plugins: [],
