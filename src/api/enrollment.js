@@ -6,7 +6,7 @@ export const createEnrollment = async (data) => {
         const response = await axios.post(`${baseURL}/enrollment/create`, data)
         if (response) return response
     } catch (err) {
-        console.log(err)
+        return err.response
     }
 }
 
@@ -32,6 +32,15 @@ export const getEnrollmentsByMssv = async (mssv) => {
 export const getAllEnrollments = async () => {
     try {
         const response = await axios.get(`${baseURL}/enrollment/allenrollments`)
+        if (response) return response
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const deleteEnrollment = async (maMonHoc) => {
+    try {
+        const response = await axios.delete(`${baseURL}/enrollment/delete/${maMonHoc}`)
         if (response) return response
     } catch (err) {
         console.log(err)

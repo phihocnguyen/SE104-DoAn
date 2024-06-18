@@ -5,13 +5,14 @@ import React, { useEffect, useState } from 'react'
 import EditModal from '../EditModal'
 import { useLocation } from 'react-router-dom'
 import Modal from '../Modal'
-import { getEnrollmentsByMssv } from '../../api/enrollment'
+import { deleteEnrollment, getEnrollmentsByMssv } from '../../api/enrollment'
 import { confirmAlert } from 'react-confirm-alert'
 import { deleteStudent } from '../../api/student'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import { deleteSubject } from '../../api/subject'
 import { deleteProgram } from '../../api/program'
 import { deleteSemester } from '../../api/semester'
+import { AiFillDelete } from 'react-icons/ai'
 const ListItemsContainer = ({ items }) => (
     <>
         {items.map((item, index) => (
@@ -19,7 +20,7 @@ const ListItemsContainer = ({ items }) => (
         ))} 
     </>
 )
-const List = ({ items, items1, setLoading }) => {
+const List = ({ items, items1, setLoading, setEnrollmentList }) => {
     const [openModal, setOpenModal] = useState(false)
     const [detail, setDetail] = useState([])
     const [editModal, setEditModal] = useState(false)
@@ -127,7 +128,7 @@ const List = ({ items, items1, setLoading }) => {
             break
         }
         case '/student/svdkhp': {
-            columns = ['', 'tenMonHoc', 'loaiMon', 'tinChi']
+            columns = ['', 'tenMonHoc', 'loaiMon', 'tinChi', 'xoa']
             height = '80'
             unit = '%'
         }
@@ -142,6 +143,29 @@ const List = ({ items, items1, setLoading }) => {
         } catch (err) {
             console.log(err)
         }
+    }
+
+    const handleDeleteEnrollment = async (maMonHoc) => {
+        confirmAlert({
+      message: 'Bạn có chắc chắn muốn xóa không ?',
+      buttons: [
+        {
+          label: 'Xác nhận',
+          onClick: async () => {
+            try {
+                const response = await deleteEnrollment(maMonHoc)
+                setEnrollmentList(prevState => [...prevState.filter(state => state.maMonHoc !== response.data.maMonHoc)])
+                notify()
+            } catch (err) {
+                console.log(err)
+            }
+          }
+        },
+        {
+          label: 'Hủy bỏ'
+        }
+      ]
+    });
     }
 
     return (
@@ -179,7 +203,7 @@ const List = ({ items, items1, setLoading }) => {
                         <tr key={index1} className=' px-4 py-3 flex items-center '>
                             {columns.map((column, index2) => (
                                 <React.Fragment key={ index2 }>
-                                    {column !== 'utils' && column !== 'chitiet' && column !== 'chon' ? 
+                                    {column !== 'utils' && column !== 'chitiet' && column !== 'chon' && column !== 'xoa' ? 
                                         <th className={`w-1/4`} >
                                             <div className={`text-black mt-2 mb-2 flex justify-center items-center`}>
                                                 <div className="text-[0.65rem] ">{column === '' ? index1 + 1 : item[`${column}`] }</div>
@@ -198,6 +222,11 @@ const List = ({ items, items1, setLoading }) => {
                                             {/* <CiCirclePlus onClick={notify} className=' text-[#1d1c34] opacity-25 hover:opacity-100 cursor-pointer duration-150 text-[32px]'/>
                                              */}
                                              <input type="checkbox"/>
+                                        </th>
+                                    :
+                                    column === 'xoa' ? 
+                                        <th className={`w-1/4 flex justify-center`} >
+                                             <AiFillDelete onClick={() => handleDeleteEnrollment(item.maMonHoc)} className='text-[24px] opacity-50 hover:opacity-100 duration-150 cursor-pointer'/>
                                         </th>
                                     :
                                         <th className={`w-1/4`} >
