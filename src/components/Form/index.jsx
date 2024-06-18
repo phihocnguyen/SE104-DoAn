@@ -125,18 +125,27 @@ const   Form = ({items,items1,label, selectValue, data, setData, setList, setLoa
 
       try {
         setLoading(true)
-        
+        setErrorMessage('')
         let response = []
 
         switch(location.pathname) {
           case  '/hssv': {
+            setErrorMessage('')
             const regex = new RegExp('^(((0[1-9]|[12][0-9]|30)[-/]?(0[13-9]|1[012])|31[-/]?(0[13578]|1[02])|(0[1-9]|1[0-9]|2[0-8])[-/]?02)[-/]?[0-9]{4}|29[-/]?02[-/]?([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00))$')
-            if (regex.test(data.ngaysinh)) {
+            if (data.ngaysinh) {
+              if (regex.test(data.ngaysinh)) {
               response = await createStudent(data)
-            } else alert('Ngày sinh phải ở định dạng dd/MM/yyyy')
+              }
+              else {
+                setLoading(false)
+                setErrorMessage('Ngày sinh phải ở định dạng dd/MM/yyyy')
+                return
+              }
+            }
             break
           }
           case '/dsmh': {
+            setErrorMessage('')
             response = await createSubject(data)
             if (response.status === 400) {
               setLoading(false)
@@ -147,6 +156,7 @@ const   Form = ({items,items1,label, selectValue, data, setData, setList, setLoa
           }
           case '/cth': {
             response = await createProgram(data)
+            console.log(response)
             break
           }
           case '/mmtk': {
@@ -154,7 +164,18 @@ const   Form = ({items,items1,label, selectValue, data, setData, setList, setLoa
             break
           }
           case '/dkhp': {
-            response = await createForm(data)
+            setErrorMessage('')
+            const regex = new RegExp('^(((0[1-9]|[12][0-9]|30)[-/]?(0[13-9]|1[012])|31[-/]?(0[13578]|1[02])|(0[1-9]|1[0-9]|2[0-8])[-/]?02)[-/]?[0-9]{4}|29[-/]?02[-/]?([0-9]{2}(([2468][048]|[02468][48])|[13579][26])|([13579][26]|[02468][048]|0[0-9]|1[0-6])00))$')
+            if (data.ngaylap) {
+              if (regex.test(data.ngaylap)){
+                response = await createForm(data)
+              }
+              else {
+                setLoading(false)
+                setErrorMessage('Ngày lập phải ở định dạng dd/MM/yyyy')
+                return
+              }
+            }
             break
           }
           case '/thp': {

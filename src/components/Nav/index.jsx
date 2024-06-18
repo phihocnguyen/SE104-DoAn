@@ -27,7 +27,7 @@ const 	Nav = ({ items, loading, setLoading }) => {
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false)
-		}, 1000)
+		}, 1500)
 	}, [setLoading])
 
 	useEffect(() => {

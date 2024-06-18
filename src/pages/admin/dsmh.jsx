@@ -5,7 +5,7 @@ const Dsmh = () => {
   const [maMH, setMaMH] = useState('')
   const [courseName, setCourseName] = useState('')
   const [type, setType] = useState('')
-  const [soTiet, setSoTiet] = useState(0)
+  const [soTiet, setSoTiet] = useState('')
   const [data, setData] = useState({})
   const [subjects, setSubjects] = useState([])
   const [loading, setLoading] = useState(true)

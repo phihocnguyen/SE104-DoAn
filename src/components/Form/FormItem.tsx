@@ -25,7 +25,7 @@ function DDMbox ({item, data, setData}) {
     const { label, position, haveDDM , margin, marrow, mlabel, options, state, setState, setCourseList} = item
     
     const handleState = async (e) => {
-            if (location.pathname === '/mmtk' && e.target.value === 'Học kỳ 1' || e.target.value === 'Học kỳ 2' || e.target.value === 'Học kỳ hè') {
+            if (location.pathname === '/mmtk' && (e.target.value === 'Học kỳ 1' || e.target.value === 'Học kỳ 2' || e.target.value === 'Học kỳ hè')) {
                 let response = await getAllSubjectsBySemester(e.target.value)
                 if (response?.status === 200) {
                     let data = response.data.map((course) => course.tenMonHoc)

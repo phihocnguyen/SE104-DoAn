@@ -68,8 +68,8 @@ const Cth = () => {
   ]
 
   const items2 = [
-    { label: 'NGÀNH HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn ngành học', 'Kỹ thuật phần mềm', 'Khoa học máy tính'], state: major, setState: setMajor },
-    { label: 'KHOA', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn khoa', 'Khoa học máy tính', 'Công nghệ phần mềm'], state: department, setState: setDepartment },
+    { label: 'NGÀNH HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn ngành học', 'Kỹ thuật phần mềm', 'Khoa học máy tính', 'Kĩ thuật máy tính', 'Công nghệ thông tin', 'CNTT-VN'], state: major, setState: setMajor },
+    { label: 'KHOA', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn khoa', 'Khoa học máy tính', 'Công nghệ phần mềm', 'Kĩ thuật máy tính', 'Khoa học & Kỹ thuật thông tin'], state: department, setState: setDepartment },
     { label: 'HỌC KỲ', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: ['Chọn học kỳ', 'Học kỳ 1', 'Học kỳ 2', 'Học kỳ hè'], state: semester, setState: setSemester },
     { label: 'TÊN MÔN HỌC', haveDDM: true, position: 'col-span-2', margin: 'justify-center', marrow: 'mr-4', mlabel: 'ml-6', options: courseList, state: courseName, setState: setCourseName },
   ]

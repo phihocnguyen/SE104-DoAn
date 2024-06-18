@@ -29,6 +29,11 @@ const Svdkhp = () => {
 
 
   const handleSubmit = () => {
+    if (selectionList.length === 0) {
+      alert('Vui lòng chọn ít nhất một môn học')
+      return
+    }
+    let existEnrollment = ''
     confirmAlert({
       title: 'Xác nhận đăng ký học phần',
       message: 'Bạn có chắc chắn với đăng ký của mình không?.',
@@ -46,10 +51,16 @@ const Svdkhp = () => {
                     state: 'Chưa tạo phiếu'
                   }
                   const response = await createEnrollment(data)
-                  if (response.status === 201) setEnrollmentList(prevState => [...prevState, response.data])
-              }
-              notify()
-            } catch (err) {
+                  if (response?.status === 201) {
+                    setEnrollmentList(prevState => [...prevState, response.data])
+                    notify()
+                  } else {
+                    existEnrollment += response.data + ', '
+                  }
+            } 
+            if (existEnrollment) alert('Môn học (' + existEnrollment + ') đã đăng ký, vui lòng chọn môn khác')
+          }
+            catch (err) {
               console.log(err)
             }
           }
@@ -98,18 +109,12 @@ const Svdkhp = () => {
     { label: 'TÍN CHỈ', position: defaultsc },
     { label: '', position: defaultsc}
   ]
-  // const items1 = [
-  //   { label: '1', position: defaultsc1 },
-  //   { label: 'Nhập môn công nghệ phần mềm', position: defaultsc1 },
-  //   { label: 'Cơ sở ngành', position: defaultsc1 },
-  //   { label: '4', position: defaultsc1 },
-  //   { label: 'Chọn', type: 'button', position: 'rounded-[10px] justify-center w-1/2 h-[35px] bg-transparent hover:bg-[#1d1c34] hover:text-white border border-[#1d1c34] hover:border-transparent flex items-center ' },
-  // ]
   const items3 = [
     { label: 'STT', position: defaultsc },
     { label: 'MÔN HỌC', position: defaultsc },
     { label: 'LOẠI MÔN', position: defaultsc },
     { label: 'TÍN CHỈ', position: defaultsc },
+    { label: '', position: defaultsc },
   ]
   return (  
     <div className='grid grid-cols-12'>
@@ -171,7 +176,7 @@ const Svdkhp = () => {
         </div>
         <div className="h-[230px]">
           <h3 className=' text-gray-800'>DANH SÁCH MÔN ĐÃ ĐĂNG KÝ</h3>
-          <List items={items3} items1={enrollmentList} />
+          <List items={items3} items1={enrollmentList} setEnrollmentList={setEnrollmentList} />
         </div>
       </main>
     </div>
